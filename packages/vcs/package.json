@@ -1,0 +1,64 @@
+{
+  "name": "@stacksjs/vcs",
+  "type": "module",
+  "version": "0.1.0",
+  "description": "AI-native version control system built on git",
+  "author": "Chris Breuer <chris@stacksjs.org>",
+  "license": "MIT",
+  "homepage": "https://github.com/stacksjs/vcs#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stacksjs/vcs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/stacksjs/vcs/issues"
+  },
+  "keywords": [
+    "vcs",
+    "version-control",
+    "git",
+    "ai-native",
+    "llm",
+    "transcripts"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/src/index.js"
+    },
+    "./*": {
+      "import": "./dist/*"
+    }
+  },
+  "module": "./dist/src/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": {
+    "vcs": "./dist/bin/cli.js"
+  },
+  "files": [
+    "README.md",
+    "dist"
+  ],
+  "scripts": {
+    "build": "bun --bun build.ts && bun run compile",
+    "compile": "bun build ./bin/cli.ts --compile --minify --outfile bin/vcs",
+    "compile:all": "bun run compile:linux-x64 && bun run compile:linux-arm64 && bun run compile:windows-x64 && bun run compile:darwin-x64 && bun run compile:darwin-arm64",
+    "compile:linux-x64": "bun build ./bin/cli.ts --compile --minify --target=bun-linux-x64 --outfile bin/vcs-linux-x64",
+    "compile:linux-arm64": "bun build ./bin/cli.ts --compile --minify --target=bun-linux-arm64 --outfile bin/vcs-linux-arm64",
+    "compile:windows-x64": "bun build ./bin/cli.ts --compile --minify --target=bun-windows-x64 --outfile bin/vcs-windows-x64.exe",
+    "compile:darwin-x64": "bun build ./bin/cli.ts --compile --minify --target=bun-darwin-x64 --outfile bin/vcs-darwin-x64",
+    "compile:darwin-arm64": "bun build ./bin/cli.ts --compile --minify --target=bun-darwin-arm64 --outfile bin/vcs-darwin-arm64",
+    "prepublishOnly": "bun --bun run build && bun run compile:all",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "@stacksjs/clapp": "^0.2.0",
+    "bunfig": "^0.15.6",
+    "isomorphic-git": "^1.27.2",
+    "ts-error-handling": "^0.1.1"
+  },
+  "devDependencies": {
+    "bun-plugin-dtsx": "^0.9.9",
+    "@types/bun": "^1.2.4"
+  }
+}

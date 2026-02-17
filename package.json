@@ -1,0 +1,48 @@
+{
+  "name": "vcs",
+  "type": "module",
+  "version": "0.1.0",
+  "description": "AI-native version control system built on git",
+  "author": "Chris Breuer <chris@stacksjs.org>",
+  "license": "MIT",
+  "homepage": "https://github.com/stacksjs/vcs#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stacksjs/vcs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/stacksjs/vcs/issues"
+  },
+  "keywords": [
+    "vcs",
+    "version-control",
+    "git",
+    "ai-native",
+    "llm",
+    "transcripts"
+  ],
+  "scripts": {
+    "vcs": "bun run packages/vcs/bin/cli.ts",
+    "build": "bun run packages/vcs/build.ts",
+    "compile": "bun build packages/vcs/bin/cli.ts --compile --minify --outfile vcs",
+    "fresh": "bunx rimraf node_modules/ bun.lock && bun i",
+    "test": "bun test",
+    "lint": "pickier run . --mode lint",
+    "lint:fix": "pickier run . --mode lint --fix",
+    "format": "pickier run . --mode format",
+    "format:check": "pickier run . --mode format --check",
+    "changelog": "bunx logsmith --verbose",
+    "changelog:generate": "bunx logsmith --output CHANGELOG.md",
+    "release": "bun run changelog:generate && bunx bumpx prompt --recursive",
+    "dev:docs": "bun --bun vitepress dev docs",
+    "build:docs": "bun --bun vitepress build docs",
+    "preview:docs": "bun --bun vitepress preview docs",
+    "typecheck": "bun --bun tsc --noEmit"
+  },
+  "devDependencies": {
+    "better-dx": "^0.2.3"
+  },
+  "workspaces": [
+    "packages/*"
+  ]
+}
